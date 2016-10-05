@@ -1,0 +1,120 @@
+﻿@model dsa.Models.CouncilFoundationModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>District Search Tool</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://code.jquery.com/jquery.js"></script>
+
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    @*<link href="~/Content/css/bootstrap.min.css" rel="stylesheet" media="screen">*@
+    @*<script src="js/bootstrap.min.js"></script>*@
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.6/jq-2.2.3/dt-1.10.12/b-1.2.2/b-html5-1.2.2/b-print-1.2.2/cr-1.3.2/fh-3.1.2/r-2.1.0/rr-1.1.2/datatables.min.css" />
+
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.6/jq-2.2.3/dt-1.10.12/b-1.2.2/b-html5-1.2.2/b-print-1.2.2/cr-1.3.2/fh-3.1.2/r-2.1.0/rr-1.1.2/datatables.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <h2><img src="~/Content/img/logo.png"></h2>
+
+        </div>
+        <div class="row bg-primary" style="border-bottom:1px dotted #111;margin-bottom:30px;padding:15px;border-radius: 10px; ">
+            <h4>District Search Tool</h4>
+            <hr />
+            @using (Html.BeginForm("Foundations", "DistrictSearch", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                <div class="col-xs-3">
+                    <div class="form-group" Style="padding-right: 2em">
+                        <label for="inpCongressional">Congressional District</label>
+                        @*<input type="text" class="form-control" id="inpCongressional" placeholder="District">*@
+                        @Html.TextBoxFor(m => m.District, new { @class = "form-control", placeholder = "District" ,id = "inpCongressional" })
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label for="inpCongressional">State</label>
+                        @Html.DropDownListFor(model => model.State, Model.AllStates, "-- Select State --", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <label for="inpCongressional">Status</label>
+                    @Html.DropDownListFor(model => model.CouncilStatus, Model.AllStatus,  new { @class = "form-control" })
+                </div>
+                <div class="col-xs-3">
+                    <input id="submitBtn" class="btn btn-success" type="submit" value="Submit" style="margin-top:1.75em">
+                    @*<button type="button" class="btn btn-info" style="float:right;margin-top:1.75em">Export CSV</button>*@
+                    @*<input id="exportBtn" class="btn btn-success" type="submit" value="Export CSV" style="margin-top:1.75em">*@
+
+                </div>
+
+            }
+
+        </div>
+        <div class="row">
+            <table id="district" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Org Name</th>
+                        <th>Council Status</th>
+                        <th>CFNSB</th>
+                        <th>Address 1</th>
+                        <th>Address 2</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>District</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var f in Model.Foundations)
+                    {
+                        <tr>
+                            <td>@f.OrgName</td>
+                            <td>@f.CouncilStatus</td>
+                            <td>@f.CFNSB</td>
+                            <td>@f.Address1</td>
+                            <td>@f.Address2</td>
+                            <td>@f.City</td>
+                            <td>@f.State</td>
+                            <td>@f.District</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-md-6 buttonBox">
+            </div>
+            <div class="col-md-6"></div>
+        </div>
+    </div>
+
+
+    <script>
+        $(document).ready(function() {
+            $('#district').DataTable({
+                "processing": true, // control the processing indicator.
+                "serverSide": false, // recommended to use serverSide when data is more than 10000 rows for performance reasons
+                "info": true,   // control table information display field
+                "stateSave": true,  //restore table state on page reload,
+                "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]]    // use the first inner array as the page length values and the second inner array as the displayed options
+            });
+
+        });
+    </script>
+</body>
+
+</html>
