@@ -1,0 +1,11 @@
+#ignore thumbnails created by windows
+Thumbs.db
+
+node_modules
+[Bb]in
+[Dd]ebug*/
+obj/
+[Rr]elease*/
+*.suo
+packages/
+Config/config.xml
