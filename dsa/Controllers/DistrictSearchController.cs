@@ -63,31 +63,5 @@ namespace dsa.Controllers
             });
         }
 
-
-        //[HttpGet]
-        //public ActionResult /* List<Models.CouncilFoundationModel> */ CouncilFoundationData()
-        //{
-        //    var svc = new Services.FoundationService();
-
-        //    var model = new Models.CouncilFoundationModel
-        //    {
-        //        State = "CO",
-        //        District = string.Empty,
-        //        CouncilStatus = string.Empty,
-        //    };
-
-        //    var councilData = svc.GetFoundations( model );
-        //    var data = new Models.DataTableDataModel
-        //    {
-        //        draw = 1,
-        //        recordsFiltered = councilData.Count,
-        //        recordsTotal = councilData.Count,
-        //        data = councilData,
-        //    };
-
-        //    return Json(data, JsonRequestBehavior.AllowGet);
-        //}
-
-
     }
 }
