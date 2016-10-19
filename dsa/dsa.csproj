@@ -255,7 +255,9 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
-    <None Include="Properties\PublishProfiles\FoundationSearch - Web Deploy %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\COF.pubxml" />
+    <None Include="Properties\PublishProfiles\Peak One.pubxml" />
+    <None Include="Properties\PublishProfiles\test2.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
