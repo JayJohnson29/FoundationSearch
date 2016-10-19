@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace dsa
@@ -14,11 +10,10 @@ namespace dsa
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-    name: "DS",
-    url: "",
-    defaults: new { controller = "DistrictSearch", action = "Index"}
-);
-
+                   name: "DS",
+                    url: "",
+                    defaults: new { controller = "DistrictSearch", action = "Index" }
+            );
 
             routes.MapRoute(
                 name: "Default",

@@ -17,6 +17,7 @@ namespace dsa.Models
         [Key]
         public int Id { get; set; }
         public string OrgName { get; set; }
+        public string OrgClass { get; set; }
         public string CouncilStatus { get; set; }
         public string CFNSB { get; set; }
         public string Address1 { get; set; }

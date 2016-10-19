@@ -9,12 +9,12 @@ namespace dsa.Models
 {
     public class CouncilFoundationModel
     {
-        public string OrgName { get; set; }
+        //public string OrgName { get; set; }
         public string CouncilStatus { get; set; }
-        public string CFNSB { get; set; }
-        public string Address1 { get; set; }
-        public string Address2 { get; set; }
-        public string City { get; set; }
+        //public string CFNSB { get; set; }
+        //public string Address1 { get; set; }
+        //public string Address2 { get; set; }
+        //public string City { get; set; }
         public string State { get; set; }
         public string District { get; set; }
 

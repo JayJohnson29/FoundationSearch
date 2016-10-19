@@ -90,7 +90,7 @@ namespace dsa.Services
                 {
                     var dt = queryResult.DataSet.Tables[0];
 
-                    for (int i = 0; i < dt.Rows.Count; i++)
+                    for (int i = 0;i < dt.Rows.Count; i++)
                     {
                         var s = dt.Rows[i][0].ToString();
                         var id = 0;
@@ -100,13 +100,14 @@ namespace dsa.Services
                         {
                             Id = id,
                             OrgName = dt.Rows[i][1].ToString(),
-                            District = dt.Rows[i][5].ToString(),
-                            CFNSB = dt.Rows[i][4].ToString(),
                             CouncilStatus = dt.Rows[i][3].ToString(),
+                            OrgClass = dt.Rows[i][4].ToString(),
+                            District = dt.Rows[i][5].ToString(),                           
                             Address1 = dt.Rows[i][6].ToString(),
                             Address2 = dt.Rows[i][7].ToString(),
                             City = dt.Rows[i][9].ToString(),
-                            State = dt.Rows[i][10].ToString()
+                            State = dt.Rows[i][10].ToString(),
+                            CFNSB = dt.Rows[i][13].ToString(),
                         });
                     }
                 }
