@@ -43,7 +43,7 @@ namespace dsa.Controllers
             {
                 AllStates = allStates,
                 AllStatus = StatusList,
-                Foundations = foundations,
+                Foundations = new List<Models.FoundationModel>(),
             });
         }
 

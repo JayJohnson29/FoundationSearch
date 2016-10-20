@@ -39,16 +39,16 @@ namespace dsa.Services
                         invocationParameters.Add(new StoredProcedureParameterItem("inpOperator", "OR", ParameterDirection.Input));
                         break;
                     case "1":
-                        status = new CouncilStatus { Accredited = "NO", Member = "YES", Operator = "AND" };
+                        status = new CouncilStatus { Accredited = "No", Member = "Yes", Operator = "AND" };
                         break;
                     case "2":
-                        status = new CouncilStatus { Accredited = "YES", Member = "NO", Operator = "AND" };
+                        status = new CouncilStatus { Accredited = "Yes", Member = "No", Operator = "AND" };
                         break;
                     case "3":
-                        status = new CouncilStatus { Accredited = "YES", Member = "YES", Operator = "AND" };
+                        status = new CouncilStatus { Accredited = "Yes", Member = "Yes", Operator = "AND" };
                         break;
                     case "4":
-                        status = new CouncilStatus { Accredited = "YES", Member = "YES", Operator = "OR" };
+                        status = new CouncilStatus { Accredited = "Yes", Member = "Yes", Operator = "OR" };
                         break;
                     default:
                         invocationParameters.Add(new StoredProcedureParameterItem("inpOperator", "OR", ParameterDirection.Input));
