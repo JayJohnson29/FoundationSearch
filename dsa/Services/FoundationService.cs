@@ -13,13 +13,6 @@ namespace dsa.Services
 {
     public class FoundationService
     {
-        public class CouncilStatus
-        {
-            public string Member { get; set; }
-            public string Accredited { get; set; }
-            public string Operator { get; set; }
-        }
-
         public List<Models.FoundationModel> GetFoundations(CouncilFoundationModel model)
         {
             try
@@ -32,34 +25,26 @@ namespace dsa.Services
                 invocationParameters.Add(new StoredProcedureParameterItem("inpSTATE", model.State ?? string.Empty, ParameterDirection.Input));
                 invocationParameters.Add(new StoredProcedureParameterItem("inpCongressional", model.District, ParameterDirection.Input));
 
-                CouncilStatus status = null;
-                //switch (model.CouncilStatus)
-                //{
-                //    case "0":
-                //        invocationParameters.Add(new StoredProcedureParameterItem("inpOperator", "OR", ParameterDirection.Input));
-                //        break;
-                //    case "1":
-                //        status = new CouncilStatus { Accredited = "No", Member = "YES", Operator = "AND" };
-                //        break;
-                //    case "2":
-                //        status = new CouncilStatus { Accredited = "Yes", Member = "NO", Operator = "AND" };
-                //        break;
-                //    case "3":
-                //        status = new CouncilStatus { Accredited = "Yes", Member = "YES", Operator = "AND" };
-                //        break;
-                //    case "4":
-                //        status = new CouncilStatus { Accredited = "Yes", Member = "YES", Operator = "OR" };
-                //        break;
-                //    default:
-                //        invocationParameters.Add(new StoredProcedureParameterItem("inpOperator", "OR", ParameterDirection.Input));
-                //        break;
-                //}
-
-                if (false /* status != null */)
+                switch (model.CouncilStatus)
                 {
-                    invocationParameters.Add(new StoredProcedureParameterItem("inpMEMFLAG", status.Member, ParameterDirection.Input));
-                    invocationParameters.Add(new StoredProcedureParameterItem("inpAccredited", status.Accredited, ParameterDirection.Input));
-                    invocationParameters.Add(new StoredProcedureParameterItem("inpOperator", status.Operator, ParameterDirection.Input));
+                    case "1":
+                        invocationParameters.Add(new StoredProcedureParameterItem("inpMEMFLAG", "Yes", ParameterDirection.Input));
+                        break;
+                    case "2":
+                        invocationParameters.Add(new StoredProcedureParameterItem("inpAccredited", "Yes", ParameterDirection.Input));
+                        break;
+                    case "3":
+                        invocationParameters.Add(new StoredProcedureParameterItem("inpMEMFLAG", "Yes", ParameterDirection.Input));
+                        invocationParameters.Add(new StoredProcedureParameterItem("inpAccredited", "Yes", ParameterDirection.Input));
+                        invocationParameters.Add(new StoredProcedureParameterItem("inpOperator", "AND", ParameterDirection.Input));
+                        break;
+                    case "4":
+                        invocationParameters.Add(new StoredProcedureParameterItem("inpMEMFLAG", "Yes", ParameterDirection.Input));
+                        invocationParameters.Add(new StoredProcedureParameterItem("inpAccredited", "Yes", ParameterDirection.Input));
+                        invocationParameters.Add(new StoredProcedureParameterItem("inpOperator", "OR", ParameterDirection.Input));
+                        break;
+                    default:
+                        break;
                 }
 
                 IQueryRequest request = new QueryRequest(storedProcedureRequest);
@@ -95,60 +80,19 @@ namespace dsa.Services
                         var s = dt.Rows[i][0].ToString();
                         var id = 0;
                         Int32.TryParse(s, out id);
-                        bool match = false;
-
-                        var acc = dt.Rows[i][13].ToString().ToUpper();
-                        var ms = dt.Rows[i][2].ToString().ToUpper();
-
-                        switch (model.CouncilStatus)
+                        foundations.Add(new FoundationModel
                         {
-                            case "0":
-                                match = true;
-                                break;
-                            case "1":
-                                status = new CouncilStatus { Accredited = "NO", Member = "Yes", Operator = "AND" };
-                                if (/*acc == "NO" && */ ms == "MEMBER")
-                                    match = true;
-
-                                break;
-                            case "2":
-                                status = new CouncilStatus { Accredited = "Yes", Member = "NO", Operator = "AND" };
-                                if (acc == "YES" /* && ms != "MEMBER" */)
-                                    match = true;
-
-                                break;
-                            case "3":
-                                status = new CouncilStatus { Accredited = "Yes", Member = "Yes", Operator = "AND" };
-                                if (acc == "YES" && ms == "MEMBER")
-                                    match = true;
-
-                                break;
-                            case "4":
-                                status = new CouncilStatus { Accredited = "Yes", Member = "Yes", Operator = "OR" };
-                                if (acc == "YES" || ms == "MEMBER")
-                                    match = true;
-                                break;
-                            default:
-                                match = true;
-                                break;
-                        }
-
-                        if (match)
-                        {
-                            foundations.Add(new FoundationModel
-                            {
-                                Id = id,
-                                OrgName = dt.Rows[i][1].ToString(),
-                                CouncilStatus = dt.Rows[i][3].ToString(),
-                                OrgClass = dt.Rows[i][4].ToString(),
-                                District = dt.Rows[i][5].ToString(),
-                                Address1 = dt.Rows[i][6].ToString(),
-                                Address2 = dt.Rows[i][7].ToString(),
-                                City = dt.Rows[i][9].ToString(),
-                                State = dt.Rows[i][10].ToString(),
-                                CFNSB = dt.Rows[i][13].ToString(),
-                            });
-                        }
+                            Id = id,
+                            OrgName = dt.Rows[i][1].ToString(),
+                            CouncilStatus = dt.Rows[i][3].ToString(),
+                            OrgClass = dt.Rows[i][4].ToString(),
+                            District = dt.Rows[i][5].ToString(),
+                            Address1 = dt.Rows[i][6].ToString(),
+                            Address2 = dt.Rows[i][7].ToString(),
+                            City = dt.Rows[i][9].ToString(),
+                            State = dt.Rows[i][10].ToString(),
+                            CFNSB = dt.Rows[i][13].ToString(),
+                        });
                     }
                 }
 

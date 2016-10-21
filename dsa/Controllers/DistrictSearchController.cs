@@ -36,14 +36,15 @@ namespace dsa.Controllers
 
 
             var svc = new Services.FoundationService();
-            var foundations = svc.GetFoundations(model);
+            // var foundations = svc.GetFoundations(model);
+            var foundations = new List<Models.FoundationModel>();
             var states = svc.GetAllStates();
             var allStates = states.Select(s => new SelectListItem { Text = s.Value, Value = s.Key }).ToList();
             return View(new Models.CouncilFoundationModel
             {
                 AllStates = allStates,
                 AllStatus = StatusList,
-                Foundations = new List<Models.FoundationModel>(),
+                Foundations = foundations,
             });
         }
 
